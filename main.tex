@@ -1,7 +1,7 @@
-\documentclass[12pt, letterpaper]{article}
+\documentclass[12pt, letterpaper]{report}
 
-% Load packages and configurations
-\input{styles/preamble}
+% Thesis template
+\usepackage{styles/thesis-iotai}
 
 \title{Detección de anomalías acústicas en cabezales de herramientas de torque utilizando técnicas de TinyML}
 \author{Iván Fernando Vázquez López}
@@ -10,8 +10,34 @@
 
 \begin{document}
 
-\input{styles/cover}
-\clearpage
-\pagenumbering{arabic}
+% 1. Cover
+\makecover
+
+% 2. Front Matter
+\startfrontmatter
+  \thesisfrontmatterpage{sections/00_dedicatoria}
+  \thesisfrontmatterpage{sections/00_agradecimientos}
+  \thesisfrontmatterpage{sections/00_abstract}
+  \thesistableofcontents
+
+% 3. Main Body
+\startmainmatter
+  \input{sections/01_introduction}
+  \clearpage
+  \input{sections/02_state_of_the_art}
+  \clearpage
+  \input{sections/03_methodology}
+  \clearpage
+  \input{sections/04_results}
+  \clearpage
+  \input{sections/05_conclusions}
+
+% 4. References
+  \clearpage
+  \nocite{*} % Comment after the thesis is finished
+  \printbibliography[title={Referencias bibliográficas}, heading=bibnumbered]%
+
+% 5. Appendix
+  \input{sections/99_appendix}
 
 \end{document}
