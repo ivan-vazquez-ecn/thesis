@@ -1,0 +1,27 @@
+% --- Language & Localization ---
+\usepackage[spanish, es-nodecimaldot]{babel}
+
+% --- Typography & Fonts (LuaLaTeX) ---
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+% --- Page Layout & Tables ---
+\usepackage[letterpaper, margin=2.5cm]{geometry}
+\usepackage{tabularray}
+\usepackage{graphicx}
+\usepackage{microtype}
+
+% --- PDF Links (Keep hyperref last) ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkcolor  = blue,
+    citecolor  = blue,
+    urlcolor   = blue
+}
+
+% --- Custom Metadata Macros ---
+\makeatletter
+\newcommand{\director}[1]{\gdef\@director{#1}}
+\newcommand{\@director}{\@latex@warning@no@line{No \noexpand\director given}}
+\makeatother
