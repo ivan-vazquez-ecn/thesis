@@ -1,0 +1,171 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles/thesis-iotai}[2026/08/21 Custom Thesis Package]
+
+% --- Language & Localization ---
+\usepackage[spanish, es-nodecimaldot, es-tabla]{babel}
+\usepackage{csquotes}
+\addto\captionsspanish{
+  \renewcommand{\contentsname}{Índice general}
+}
+
+% --- Typography & Fonts (LuaLaTeX) ---
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{microtype}
+\setmainfont{Arial}
+\setmathfont{Latin Modern Math}
+\setmathrm{Latin Modern Roman}
+
+% --- Page Layout & Tables ---
+\usepackage[
+  letterpaper,
+  top          = 3cm,
+  bottom       = 3cm,
+  left         = 3cm,
+  right        = 2.5cm,
+  footskip     = 1.5cm,
+]{geometry}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{tabularray}
+
+% --- Line Spacing ---
+\usepackage{setspace}
+\onehalfspacing
+
+% --- Article-Style Continuous Equation Numbering ---
+\counterwithout{equation}{chapter}
+
+% --- Headers and Footers ---
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\renewcommand{\headrulewidth}{0pt}
+
+% Style 1: Body style
+\fancypagestyle{thesisbody}{
+  \fancyhf{}
+  \fancyhead[R]{\fontsize{11pt}{13pt}\selectfont\nouppercase{\rightmark}}
+  \fancyfoot[R]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% Style 2: Front matter style (Lowercase roman on the right)
+\fancypagestyle{thesisfront}{
+  \fancyhf{}
+  \fancyhead{}
+  \fancyfoot[R]{\textnormal{\normalfont\romannumeral\value{page}}}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% Clean chapter marks so they print only the title
+% \renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+
+% --- Section Title Formatting (Body) ---
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]
+  {\fontsize{18pt}{22pt}\selectfont\bfseries}
+  {\thechapter.}
+  {0.5em}
+  {\MakeUppercase}
+\titlespacing*{\chapter}
+  {0pt}
+  {-1.5pt}
+  {18pt}
+
+\titleformat{\section}[hang]
+  {\fontsize{16pt}{20pt}\selectfont\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+\titlespacing*{\section}
+  {0pt}
+  {12pt}
+  {6pt}
+
+\titleformat{\subsection}[hang]
+  {\fontsize{14pt}{18pt}\selectfont\bfseries}
+  {\thesubsection.}
+  {0.5em}
+  {}
+\titlespacing*{\subsection}
+  {0pt}
+  {12pt}
+  {6pt}
+
+% --- Uppercase Sections in Table of Contents ---
+\usepackage{textcase}
+\let\old@l@chapter\l@chapter
+\renewcommand{\l@chapter}[2]{%
+  \old@l@chapter{\MakeTextUppercase{#1}}{#2}%
+}
+
+% --- References ---
+\usepackage[backend=biber, style=apa]{biblatex}
+\addbibresource{references.bib}
+\DefineBibliographyStrings{spanish}{
+  references = {Referencias},
+}
+
+% --- PDF Links ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks   = false,
+    linkcolor    = blue,
+    citecolor    = blue,
+    urlcolor     = blue,
+    plainpages   = false,
+    pdfpagelabels,
+}
+
+% --- Custom Metadata Macros ---
+\newcommand{\director}[1]{\gdef\@director{#1}}
+\newcommand{\@director}{\@latex@warning@no@line{No \noexpand\director given}}
+
+
+% =========================================================
+% --- Modular Section Environments & Commands ---
+% =========================================================
+
+% 1. Cover Command
+\newcommand{\makecover}{%
+  \input{styles/cover}%
+}
+
+% 2. Front Matter Setup
+\newcommand{\startfrontmatter}{%
+  \clearpage
+  \restoregeometry
+  \pagenumbering{roman}%
+  \setcounter{page}{1}%
+  \pagestyle{thesisfront}%
+  \let\ps@plain\ps@thesisfront % Forces TOC to use lowercase roman
+  \thispagestyle{thesisfront}%
+}
+
+\newcommand{\thesisfrontmatterpage}[1]{%
+  \thispagestyle{thesisfront}%
+  \input{#1}%
+  \clearpage
+}
+
+\newcommand{\thesistableofcontents}{%
+  \clearpage
+  \tableofcontents
+  \clearpage
+  \listoffigures
+  \clearpage
+  \listoftables
+  \clearpage
+}
+
+% 3. Main Body Setup
+\newcommand{\startmainmatter}{%
+  \clearpage
+  \pagenumbering{arabic}%
+  \pagestyle{thesisbody}%
+  \let\ps@plain\ps@thesisbody% 
+  
+  % Force Section names into the right header, with Chapter name as a backup
+  \renewcommand{\chaptermark}[1]{\markboth{##1}{##1}}%
+  \renewcommand{\sectionmark}[1]{\markright{\thesection\ ##1}}%
+}
