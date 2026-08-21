@@ -1,0 +1,25 @@
+## Core LaTeX auxiliary and intermediate files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.lof
+*.lot
+
+## LuaLaTeX / cache files
+*.luasession
+*.luac
+
+## LaTeX Workshop / Editor specific
+.vscode/.ropeproject
+*.nav
+*.snm
+*.vrb
