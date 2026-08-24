@@ -13,6 +13,7 @@
 *.toc
 *.lof
 *.lot
+build/
 
 ## LuaLaTeX / cache files
 *.luasession
