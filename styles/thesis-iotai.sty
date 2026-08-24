@@ -1,22 +1,158 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{styles/thesis-iotai}[2026/08/21 Custom Thesis Package]
 
+% =========================================================
+% --- Cover ---
+% =========================================================
+\newcommand{\director}[1]{\gdef\@director{#1}}
+\newcommand{\@director}{\@latex@warning@no@line{No \noexpand\director given}}
+
+\newcommand{\degree}[1]{\gdef\@degree{#1}}
+\newcommand{\@degree}{Maestro en Ingeniería}
+
+\newcommand{\program}[1]{\gdef\@program{#1}}
+\newcommand{\@program}{Maestría en Ingeniería en Internet de las Cosas e Inteligencia Artificial}
+
+\newcommand{\city}[1]{\gdef\@city{#1}}
+\newcommand{\@city}{HERMOSILLO, SONORA, MÉXICO.}
+
+\newcommand{\logo}[1]{\gdef\@logo{#1}}
+\newcommand{\@logo}{figures/ESCUDO-COLOR.png} % Default path
+
+\newcommand{\makecover}{%
+  \begin{titlepage}
+    \setlength{\parskip}{0pt}
+    \newgeometry{top=2.2cm, bottom=2.2cm, left=2.5cm, right=2.5cm}
+    \thispagestyle{empty}
+    \centering
+
+    % 1. Institutional Top Header
+    \begin{tblr}{
+      width   = \linewidth,
+      colspec = {Q[c, m]},
+      row{1}  = {font = \huge\bfseries},
+      row{2}  = {font = \LARGE\bfseries},
+      row{3}  = {font = \LARGE\bfseries},
+      rowsep  = 2pt
+    }
+      UNIVERSIDAD DE SONORA \\
+      Facultad Interdisciplinaria de Ingeniería \\
+      Departamento de Ingeniería Industrial
+    \end{tblr}
+    \vspace{1em}
+
+    % 2. University Logo
+    \includegraphics[height=1.75in, keepaspectratio]{\@logo}
+    \vspace{1em}
+
+    % 3. Master's Program Header
+    {\Large {POSGRADO EN INGENIERÍA INDUSTRIAL\par}}
+    {\large\bfseries \MakeUppercase{\@program}\par}
+    \vspace{1.2em}
+
+    % 4. Thesis Title & Degree Metadata
+    {\Large\bfseries \@title\par}
+    \vspace{1.2em}
+
+    {\huge \textbf{T\, E\, S\, I\, S}\par}
+    \vspace{1.2em}
+
+    {\normalsize PRESENTADA POR\par}
+    {\Large\bfseries \MakeUppercase{\@author}\par}
+    \vspace{1.2em}
+
+    {\fontsize{10pt}{11pt}\selectfont Desarrollada para cumplir con uno de los \\requerimientos parciales para obtener \\el grado de \@degree\par}
+    \vspace{1em}
+
+    \vspace{1.2em}
+
+    % 5. Advisory Committee
+    {\Large DIRECTOR DE TESIS\par}
+    {\Large \MakeUppercase{\@director}\par}
+
+    \vfill
+
+    % 6. Footer: Location and Date
+    \noindent
+    {\fontsize{16pt}{20pt}\selectfont \@city \hfill \MakeUppercase{\@date}\par}
+
+    % \vspace*{5pt}
+    \restoregeometry
+  \end{titlepage}
+  \clearpage
+}
+
+
+% =========================================================
 % --- Language & Localization ---
+% =========================================================
 \usepackage[spanish, es-nodecimaldot, es-tabla]{babel}
 \usepackage{csquotes}
 \addto\captionsspanish{
   \renewcommand{\contentsname}{Índice general}
 }
 
+
+% =========================================================
 % --- Typography & Fonts (LuaLaTeX) ---
+% =========================================================
+\usepackage{parskip}
 \usepackage{fontspec}
 \usepackage{unicode-math}
 \usepackage{microtype}
+% \setmainfont{New Computer Modern}
 \setmainfont{Arial}
-\setmathfont{Latin Modern Math}
-\setmathrm{Latin Modern Roman}
+\setmathfont{Cambria Math}
 
+
+% =========================================================
+% --- Code Snippets (Courier New 10pt) ---
+% =========================================================
+\usepackage{xcolor}
+\usepackage{listings}
+
+% Set monospaced font family to Courier New
+\setmonofont{Courier New}
+
+% Color Palette
+\definecolor{codekeyword}{HTML}{0000FF}   % Clean Blue for keywords
+\definecolor{codestring}{HTML}{A31515}    % Brick Red for strings
+\definecolor{codecomment}{HTML}{008000}   % Forest Green for comments
+\definecolor{codenumbers}{HTML}{7F7F7F}   % Subtle Grey for line numbers
+\definecolor{codeframe}{HTML}{E0E0E0}     % Subtle border line
+
+% Default listings style
+\lstdefinestyle{thesiscodestyle}{
+  basicstyle        = {\fontsize{10pt}{13pt}\selectfont\ttfamily},
+  keywordstyle      = \bfseries\color{codekeyword},
+  stringstyle       = \color{codestring},
+  commentstyle      = \itshape\color{codecomment},
+  numbers           = left,
+  numberstyle       = {\fontsize{8pt}{10pt}\selectfont\ttfamily\color{codenumbers}},
+  numbersep         = 10pt,
+  frame             = single,
+  rulecolor         = \color{codeframe},
+  xleftmargin       = 1.5em,
+  framexleftmargin  = 1.5em,
+  breaklines        = true,
+  breakatwhitespace = true,
+  showstringspaces  = false,
+  keepspaces        = true,
+  tabsize           = 2,
+  aboveskip         = 1em,
+  belowskip         = 1em
+}
+\lstset{style=thesiscodestyle}
+
+% Optional custom environment wrapper
+\lstnewenvironment{thesiscode}[1][]
+  {\lstset{style=thesiscodestyle, #1}}
+  {}
+
+
+% =========================================================
 % --- Page Layout & Tables ---
+% =========================================================
 \usepackage[
   letterpaper,
   top          = 3cm,
@@ -29,14 +165,23 @@
 \usepackage{caption}
 \usepackage{tabularray}
 
+
+% =========================================================
 % --- Line Spacing ---
+% =========================================================
 \usepackage{setspace}
 \onehalfspacing
 
+
+% =========================================================
 % --- Article-Style Continuous Equation Numbering ---
+% =========================================================
 \counterwithout{equation}{chapter}
 
+
+% =========================================================
 % --- Headers and Footers ---
+% =========================================================
 \usepackage{fancyhdr}
 \setlength{\headheight}{15pt}
 \renewcommand{\headrulewidth}{0pt}
@@ -60,7 +205,10 @@
 % Clean chapter marks so they print only the title
 % \renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
 
+
+% =========================================================
 % --- Section Title Formatting (Body) ---
+% =========================================================
 \usepackage{titlesec}
 \titleformat{\chapter}[hang]
   {\fontsize{18pt}{22pt}\selectfont\bfseries}
@@ -92,21 +240,36 @@
   {12pt}
   {6pt}
 
+
+% =========================================================
 % --- Uppercase Sections in Table of Contents ---
+% =========================================================
 \usepackage{textcase}
 \let\old@l@chapter\l@chapter
 \renewcommand{\l@chapter}[2]{%
   \old@l@chapter{\MakeTextUppercase{#1}}{#2}%
 }
 
+
+% =========================================================
 % --- References ---
+% =========================================================
 \usepackage[backend=biber, style=apa]{biblatex}
 \addbibresource{references.bib}
 \DefineBibliographyStrings{spanish}{
   references = {Referencias},
 }
 
+\newcommand{\thesisbibliography}{%
+  \clearpage
+  \nocite{*} % Comment out when you only want explicitly cited entries
+  \printbibliography[title={Referencias bibliográficas}, heading=bibnumbered]%
+}
+
+
+% =========================================================
 % --- PDF Links ---
+% =========================================================
 \usepackage{hyperref}
 \hypersetup{
     colorlinks   = false,
@@ -114,24 +277,14 @@
     citecolor    = blue,
     urlcolor     = blue,
     plainpages   = false,
-    pdfpagelabels,
 }
-
-% --- Custom Metadata Macros ---
-\newcommand{\director}[1]{\gdef\@director{#1}}
-\newcommand{\@director}{\@latex@warning@no@line{No \noexpand\director given}}
 
 
 % =========================================================
 % --- Modular Section Environments & Commands ---
 % =========================================================
 
-% 1. Cover Command
-\newcommand{\makecover}{%
-  \input{styles/cover}%
-}
-
-% 2. Front Matter Setup
+% 1. Front Matter Setup
 \newcommand{\startfrontmatter}{%
   \clearpage
   \restoregeometry
@@ -158,7 +311,7 @@
   \clearpage
 }
 
-% 3. Main Body Setup
+% 2. Main Body Setup
 \newcommand{\startmainmatter}{%
   \clearpage
   \pagenumbering{arabic}%
