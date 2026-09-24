@@ -1,28 +1,28 @@
-\chapter{Resultados}
-Aquí tus resultados\dots
-
-\begin{thesiscode}[language=Python]
-for i, (marker, label, color) in enumerate(zip(markers, labels, colors)):
-    plt.scatter(X[y == i, 0], X[y == i, 1], marker=marker, label=label,
-color=color, edgecolor='black')
-\end{thesiscode}
-
-\section{Sub-sección}
-Algunas reflexiones...
-
-% Tablas dinámicas con LuaLaTeX
-\begin{table}[htbp]
-  \centering
-  \caption{Métricas de desempeño del nodo sensor según la tasa de muestreo.}
-  \label{tab:sensor_metrics}
-  \pgfplotstabletypeset[
-    col sep=comma,
-    every head row/.style={before row=\toprule, after row=\midrule},
-    every last row/.style={after row=\bottomrule},
-    columns/Trial/.style={column name=Ensayo},
-    columns/SamplingRate_Hz/.style={column name=Frecuencia (Hz)},
-    columns/Accuracy_Pct/.style={column name=Precisión (\%), precision=2, fixed},
-    columns/Latency_ms/.style={column name=Latencia (ms), precision=1, fixed},
-    columns/Power_mW/.style={column name=Potencia (mW), precision=1, fixed}
-  ]{data/sensor_metrics.csv}
-\end{table}
+% \chapter{Resultados}
+% Aquí tus resultados\dots
+%
+% \begin{thesiscode}[language=Python]
+% for i, (marker, label, color) in enumerate(zip(markers, labels, colors)):
+%     plt.scatter(X[y == i, 0], X[y == i, 1], marker=marker, label=label,
+% color=color, edgecolor='black')
+% \end{thesiscode}
+%
+% \section{Sub-sección}
+% Algunas reflexiones...
+%
+% % Tablas dinámicas con LuaLaTeX
+% \begin{table}[htbp]
+%   \centering
+%   \caption{Métricas de desempeño del nodo sensor según la tasa de muestreo.}
+%   \label{tab:sensor_metrics}
+%   \pgfplotstabletypeset[
+%     col sep=comma,
+%     every head row/.style={before row=\toprule, after row=\midrule},
+%     every last row/.style={after row=\bottomrule},
+%     columns/Trial/.style={column name=Ensayo},
+%     columns/SamplingRate_Hz/.style={column name=Frecuencia (Hz)},
+%     columns/Accuracy_Pct/.style={column name=Precisión (\%), precision=2, fixed},
+%     columns/Latency_ms/.style={column name=Latencia (ms), precision=1, fixed},
+%     columns/Power_mW/.style={column name=Potencia (mW), precision=1, fixed}
+%   ]{data/sensor_metrics.csv}
+% \end{table}
