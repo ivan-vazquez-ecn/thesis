@@ -13,7 +13,7 @@
 *.toc
 *.lof
 *.lot
-build/
+build/*
 !build/*.pdf
 
 ## LuaLaTeX / cache files
