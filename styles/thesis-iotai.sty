@@ -21,66 +21,66 @@
 \newcommand{\@logo}{figures/ESCUDO-COLOR.png} % Default path
 
 \newcommand{\makecover}{%
-  \begin{titlepage}
-    \setlength{\parskip}{0pt}
-    \newgeometry{top=2.2cm, bottom=2.2cm, left=2.5cm, right=2.5cm}
-    \thispagestyle{empty}
-    \centering
+	\begin{titlepage}
+		\setlength{\parskip}{0pt}
+		\newgeometry{top=2.2cm, bottom=2.2cm, left=2.5cm, right=2.5cm}
+		\thispagestyle{empty}
+		\centering
 
-    % 1. Institutional Top Header
-    \begin{tblr}{
-      width   = \linewidth,
-      colspec = {Q[c, m]},
-      row{1}  = {font = \huge\bfseries},
-      row{2}  = {font = \LARGE\bfseries},
-      row{3}  = {font = \LARGE\bfseries},
-      rowsep  = 2pt
-    }
-      UNIVERSIDAD DE SONORA \\
-      Facultad Interdisciplinaria de Ingeniería \\
-      Departamento de Ingeniería Industrial
-    \end{tblr}
-    \vspace{1em}
+		% 1. Institutional Top Header
+		\begin{tblr}{
+				width   = \linewidth,
+				colspec = {Q[c, m]},
+				row{1}  = {font = \huge\bfseries},
+				row{2}  = {font = \LARGE\bfseries},
+				row{3}  = {font = \LARGE\bfseries},
+				rowsep  = 2pt
+			}
+			UNIVERSIDAD DE SONORA                     \\
+			Facultad Interdisciplinaria de Ingeniería \\
+			Departamento de Ingeniería Industrial
+		\end{tblr}
+		\vspace{1em}
 
-    % 2. University Logo
-    \includegraphics[height=1.75in, keepaspectratio]{\@logo}
-    \vspace{1em}
+		% 2. University Logo
+		\includegraphics[height=1.75in, keepaspectratio]{\@logo}
+		\vspace{1em}
 
-    % 3. Master's Program Header
-    {\Large {POSGRADO EN INGENIERÍA INDUSTRIAL\par}}
-    {\large\bfseries \MakeUppercase{\@program}\par}
-    \vspace{1.2em}
+		% 3. Master's Program Header
+		{\Large {POSGRADO EN INGENIERÍA INDUSTRIAL\par}}
+		{\large\bfseries \MakeUppercase{\@program}\par}
+		\vspace{1.2em}
 
-    % 4. Thesis Title & Degree Metadata
-    {\Large\bfseries \@title\par}
-    \vspace{1.2em}
+		% 4. Thesis Title & Degree Metadata
+		{\Large\bfseries \@title\par}
+		\vspace{1.2em}
 
-    {\huge \textbf{T\, E\, S\, I\, S}\par}
-    \vspace{1.2em}
+		{\huge \textbf{T\, E\, S\, I\, S}\par}
+		\vspace{1.2em}
 
-    {\normalsize PRESENTADA POR\par}
-    {\Large\bfseries \MakeUppercase{\@author}\par}
-    \vspace{1.2em}
+		{\normalsize PRESENTADA POR\par}
+		{\Large\bfseries \MakeUppercase{\@author}\par}
+		\vspace{1.2em}
 
-    {\fontsize{10pt}{11pt}\selectfont Desarrollada para cumplir con uno de los \\requerimientos parciales para obtener \\el grado de \@degree\par}
-    \vspace{1em}
+		{\fontsize{10pt}{11pt}\selectfont Desarrollada para cumplir con uno de los \\requerimientos parciales para obtener \\el grado de \@degree\par}
+		\vspace{1em}
 
-    \vspace{1.2em}
+		\vspace{1.2em}
 
-    % 5. Advisory Committee
-    {\Large DIRECTOR DE TESIS\par}
-    {\Large \MakeUppercase{\@director}\par}
+		% 5. Advisory Committee
+		{\Large DIRECTOR DE TESIS\par}
+		{\Large \MakeUppercase{\@director}\par}
 
-    \vfill
+		\vfill
 
-    % 6. Footer: Location and Date
-    \noindent
-    {\fontsize{16pt}{20pt}\selectfont \@city \hfill \MakeUppercase{\@date}\par}
+		% 6. Footer: Location and Date
+		\noindent
+		{\fontsize{16pt}{20pt}\selectfont \@city \hfill \MakeUppercase{\@date}\par}
 
-    % \vspace*{5pt}
-    \restoregeometry
-  \end{titlepage}
-  \clearpage
+		% \vspace*{5pt}
+		\restoregeometry
+	\end{titlepage}
+	\clearpage
 }
 
 
@@ -90,7 +90,7 @@
 \usepackage[spanish, es-nodecimaldot, es-tabla]{babel}
 \usepackage{csquotes}
 \addto\captionsspanish{
-  \renewcommand{\contentsname}{Índice general}
+	\renewcommand{\contentsname}{Índice general}
 }
 
 
@@ -124,43 +124,43 @@
 
 % Default listings style
 \lstdefinestyle{thesiscodestyle}{
-  basicstyle        = {\fontsize{10pt}{13pt}\selectfont\ttfamily},
-  keywordstyle      = \bfseries\color{codekeyword},
-  stringstyle       = \color{codestring},
-  commentstyle      = \itshape\color{codecomment},
-  numbers           = left,
-  numberstyle       = {\fontsize{8pt}{10pt}\selectfont\ttfamily\color{codenumbers}},
-  numbersep         = 10pt,
-  frame             = single,
-  rulecolor         = \color{codeframe},
-  xleftmargin       = 1.5em,
-  framexleftmargin  = 1.5em,
-  breaklines        = true,
-  breakatwhitespace = true,
-  showstringspaces  = false,
-  keepspaces        = true,
-  tabsize           = 2,
-  aboveskip         = 1em,
-  belowskip         = 1em
+	basicstyle        = {\fontsize{10pt}{13pt}\selectfont\ttfamily},
+	keywordstyle      = \bfseries\color{codekeyword},
+	stringstyle       = \color{codestring},
+	commentstyle      = \itshape\color{codecomment},
+	numbers           = left,
+	numberstyle       = {\fontsize{8pt}{10pt}\selectfont\ttfamily\color{codenumbers}},
+	numbersep         = 10pt,
+	frame             = single,
+	rulecolor         = \color{codeframe},
+	xleftmargin       = 1.5em,
+	framexleftmargin  = 1.5em,
+	breaklines        = true,
+	breakatwhitespace = true,
+	showstringspaces  = false,
+	keepspaces        = true,
+	tabsize           = 2,
+	aboveskip         = 1em,
+	belowskip         = 1em
 }
 \lstset{style=thesiscodestyle}
 
 % Optional custom environment wrapper
 \lstnewenvironment{thesiscode}[1][]
-  {\lstset{style=thesiscodestyle, #1}}
-  {}
+{\lstset{style=thesiscodestyle, #1}}
+{}
 
 
 % =========================================================
 % --- Page Layout & Tables ---
 % =========================================================
 \usepackage[
-  letterpaper,
-  top          = 3cm,
-  bottom       = 3cm,
-  left         = 3cm,
-  right        = 2.5cm,
-  footskip     = 1.5cm,
+	letterpaper,
+	top          = 3cm,
+	bottom       = 3cm,
+	left         = 3cm,
+	right        = 2.5cm,
+	footskip     = 1.5cm,
 ]{geometry}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -192,18 +192,18 @@
 
 % Style 1: Body style
 \fancypagestyle{thesisbody}{
-  \fancyhf{}
-  \fancyhead[R]{\fontsize{11pt}{13pt}\selectfont\nouppercase{\rightmark}}
-  \fancyfoot[R]{\thepage}
-  \renewcommand{\headrulewidth}{0pt}
+	\fancyhf{}
+	\fancyhead[R]{\fontsize{11pt}{13pt}\selectfont\nouppercase{\rightmark}}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
 }
 
 % Style 2: Front matter style (Lowercase roman on the right)
 \fancypagestyle{thesisfront}{
-  \fancyhf{}
-  \fancyhead{}
-  \fancyfoot[R]{\textnormal{\normalfont\romannumeral\value{page}}}
-  \renewcommand{\headrulewidth}{0pt}
+	\fancyhf{}
+	\fancyhead{}
+	\fancyfoot[R]{\textnormal{\normalfont\romannumeral\value{page}}}
+	\renewcommand{\headrulewidth}{0pt}
 }
 
 % Clean chapter marks so they print only the title
@@ -215,34 +215,34 @@
 % =========================================================
 \usepackage{titlesec}
 \titleformat{\chapter}[hang]
-  {\fontsize{18pt}{22pt}\selectfont\bfseries}
-  {\thechapter.}
-  {0.5em}
-  {\MakeUppercase}
+{\fontsize{18pt}{22pt}\selectfont\bfseries}
+{\thechapter.}
+{0.5em}
+{\MakeUppercase}
 \titlespacing*{\chapter}
-  {0pt}
-  {-1.5pt}
-  {18pt}
+{0pt}
+{-1.5pt}
+{18pt}
 
 \titleformat{\section}[hang]
-  {\fontsize{16pt}{20pt}\selectfont\bfseries}
-  {\thesection.}
-  {0.5em}
-  {}
+{\fontsize{16pt}{20pt}\selectfont\bfseries}
+{\thesection.}
+{0.5em}
+{}
 \titlespacing*{\section}
-  {0pt}
-  {12pt}
-  {6pt}
+{0pt}
+{12pt}
+{6pt}
 
 \titleformat{\subsection}[hang]
-  {\fontsize{14pt}{18pt}\selectfont\bfseries}
-  {\thesubsection.}
-  {0.5em}
-  {}
+{\fontsize{14pt}{18pt}\selectfont\bfseries}
+{\thesubsection.}
+{0.5em}
+{}
 \titlespacing*{\subsection}
-  {0pt}
-  {12pt}
-  {6pt}
+{0pt}
+{12pt}
+{6pt}
 
 
 % =========================================================
@@ -251,7 +251,7 @@
 \usepackage{textcase}
 \let\old@l@chapter\l@chapter
 \renewcommand{\l@chapter}[2]{%
-  \old@l@chapter{\MakeTextUppercase{#1}}{#2}%
+	\old@l@chapter{\MakeTextUppercase{#1}}{#2}%
 }
 
 
@@ -261,26 +261,26 @@
 \usepackage[backend=biber, style=apa]{biblatex}
 \addbibresource{references.bib}
 \DefineBibliographyStrings{spanish}{
-  references = {Referencias},
+	references = {Referencias},
 }
 
 \newcommand{\thesisbibliography}{%
-  \clearpage
-  \nocite{*} % Comment out when you only want explicitly cited entries
-  \printbibliography[title={Referencias bibliográficas}, heading=bibnumbered]%
+	\clearpage
+	\nocite{*} % Comment out when you only want explicitly cited entries
+	\printbibliography[title={Referencias bibliográficas}, heading=bibnumbered]%
 }
 
 
 % =========================================================
 % --- PDF Links ---
 % =========================================================
-\usepackage{hyperref}
+\usepackage[colorlinks=true]{hyperref}
 \hypersetup{
-    colorlinks   = false,
-    linkcolor    = blue,
-    citecolor    = blue,
-    urlcolor     = blue,
-    plainpages   = false,
+	colorlinks   = false,
+	linkcolor    = blue,
+	citecolor    = blue,
+	urlcolor     = blue,
+	plainpages   = false,
 }
 
 
@@ -290,39 +290,39 @@
 
 % 1. Front Matter Setup
 \newcommand{\startfrontmatter}{%
-  \clearpage
-  \restoregeometry
-  \pagenumbering{roman}%
-  \setcounter{page}{1}%
-  \pagestyle{thesisfront}%
-  \let\ps@plain\ps@thesisfront % Forces TOC to use lowercase roman
-  \thispagestyle{thesisfront}%
+	\clearpage
+	\restoregeometry
+	\pagenumbering{roman}%
+	\setcounter{page}{1}%
+	\pagestyle{thesisfront}%
+	\let\ps@plain\ps@thesisfront % Forces TOC to use lowercase roman
+	\thispagestyle{thesisfront}%
 }
 
 \newcommand{\thesisfrontmatterpage}[1]{%
-  \thispagestyle{thesisfront}%
-  \input{#1}%
-  \clearpage
+	\thispagestyle{thesisfront}%
+	\input{#1}%
+	\clearpage
 }
 
 \newcommand{\thesistableofcontents}{%
-  \clearpage
-  \tableofcontents
-  \clearpage
-  \listoffigures
-  \clearpage
-  \listoftables
-  \clearpage
+	\clearpage
+	\tableofcontents
+	\clearpage
+	\listoffigures
+	\clearpage
+	\listoftables
+	\clearpage
 }
 
 % 2. Main Body Setup
 \newcommand{\startmainmatter}{%
-  \clearpage
-  \pagenumbering{arabic}%
-  \pagestyle{thesisbody}%
-  \let\ps@plain\ps@thesisbody% 
-  
-  % Force Section names into the right header, with Chapter name as a backup
-  \renewcommand{\chaptermark}[1]{\markboth{##1}{##1}}%
-  \renewcommand{\sectionmark}[1]{\markright{\thesection\ ##1}}%
+	\clearpage
+	\pagenumbering{arabic}%
+	\pagestyle{thesisbody}%
+	\let\ps@plain\ps@thesisbody% 
+
+	% Force Section names into the right header, with Chapter name as a backup
+	\renewcommand{\chaptermark}[1]{\markboth{##1}{##1}}%
+	\renewcommand{\sectionmark}[1]{\markright{\thesection\ ##1}}%
 }
