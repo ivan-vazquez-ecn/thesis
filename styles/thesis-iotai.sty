@@ -87,7 +87,7 @@
 % =========================================================
 % --- Language & Localization ---
 % =========================================================
-\usepackage[spanish, es-nodecimaldot, es-tabla]{babel}
+\usepackage[spanish, es-tabla]{babel}
 \usepackage{csquotes}
 \addto\captionsspanish{
 	\renewcommand{\contentsname}{Índice general}
@@ -99,17 +99,43 @@
 % =========================================================
 \usepackage{parskip}
 \usepackage{fontspec}
+\usepackage{mathtools}
 \usepackage{unicode-math}
 \usepackage{microtype}
 % \setmainfont{New Computer Modern}
+% \setmathfont{NewComputerModern Math}
 \setmainfont{Arial}
 \setmathfont{Cambria Math}
 
+% --- Custom Paired Delimiters ---
+\DeclarePairedDelimiter{\parens}{(}{)}
+\DeclarePairedDelimiter{\braces}{\{}{\}}
+\DeclarePairedDelimiter{\brackets}{[}{]}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+
+% =========================================================
+% --- International Units ---
+% =========================================================
+\usepackage{siunitx}
+
+\DeclareSIUnit{\Iunit}{I-unit}
+\DeclareSIUnit{\Iunits}{I-units}
+
+\sisetup{
+	per-mode = symbol,
+	mode = text,
+	inter-unit-product = \cdot,
+	output-decimal-marker = {.},
+	group-separator = {\,},
+	group-minimum-digits = 4
+}
 
 % =========================================================
 % --- Code Snippets (Courier New 10pt) ---
 % =========================================================
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{listings}
 
 % Set monospaced font family to Courier New
@@ -184,6 +210,14 @@
 
 
 % =========================================================
+% --- TikZ & Libraries ---
+% =========================================================
+\usepackage{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, positioning, arrows.meta, babel}
+
+
+% =========================================================
 % --- Headers and Footers ---
 % =========================================================
 \usepackage{fancyhdr}
@@ -193,7 +227,7 @@
 % Style 1: Body style
 \fancypagestyle{thesisbody}{
 	\fancyhf{}
-	\fancyhead[R]{\fontsize{11pt}{13pt}\selectfont\nouppercase{\rightmark}}
+	\fancyhead[R]{\fontsize{11pt}{13pt}\selectfont\nouppercase{\leftmark}}
 	\fancyfoot[R]{\thepage}
 	\renewcommand{\headrulewidth}{0pt}
 }
@@ -264,9 +298,14 @@
 	references = {Referencias},
 }
 
+\AtEveryBibitem{%
+	\clearfield{note}%
+	\clearfield{addendum}%
+}
+
 \newcommand{\thesisbibliography}{%
 	\clearpage
-	\nocite{*} % Comment out when you only want explicitly cited entries
+	% \nocite{*} % Comment out when you only want explicitly cited entries
 	\printbibliography[title={Referencias bibliográficas}, heading=bibnumbered]%
 }
 
@@ -274,14 +313,14 @@
 % =========================================================
 % --- PDF Links ---
 % =========================================================
-\usepackage[colorlinks=true]{hyperref}
-% \hypersetup{
-% 	colorlinks   = false,
-% 	linkcolor    = blue,
-% 	citecolor    = blue,
-% 	urlcolor     = blue,
-% 	plainpages   = false,
-% }
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks   = true,
+	linkcolor    = MidnightBlue,
+	citecolor    = MidnightBlue,
+	urlcolor     = MidnightBlue,
+	plainpages   = false,
+}
 
 
 % =========================================================
@@ -324,5 +363,4 @@
 
 	% Force Section names into the right header, with Chapter name as a backup
 	\renewcommand{\chaptermark}[1]{\markboth{##1}{##1}}%
-	\renewcommand{\sectionmark}[1]{\markright{\thesection\ ##1}}%
 }
