@@ -1,3 +1,53 @@
-\chapter{Estado del arte}
+%! TeX root = ../main.tex
 
-El estado del arte
+\chapter{Estado del arte y marco de referencia}
+En la literatura se busca detectar planitud a un nivel milimétrico utilizando técnicas avanzadas de óptica y matemáticas, sin embargo, la mayoría de los estudios realizados son con las láminas en movimiento, justo antes o durante el cortado.
+Esto introduce una serie de retos, pues el mismo movimiento induce vibraciones que pueden pasar como defectos en la planitud, pero como vemos en estudios realizados por \textcite{Alonso2020, Alonso2021}, muestran que con una técnica llamada spline cúbica de Hermite, podemos eliminar este ruido de una forma muy elegante.
+A pesar de que la mayoría de los artículos indagan en otras técnicas para la detección de planitud, tales como proyección de líneas láser \parencite{Molleda2011, Alonso2020, Alonso2021, Tsai2021, Zhu2026}, aquellos de especial interés serán los que integran técnicas de \textit{Time-of-Flight} \parencite{Lange2001, Du2026, Yoshida2026}.
+
+\section{Marco teórico y fundamentos técnicos}
+La tecnología \textit{Time-of-Flight} opera bajo el principio de una medición directa del tiempo que pasa entre la emisión de una señal luminosa y su recepción tras reflejarse en la superficie del objeto, tal y como se describe en \textcite{Lange2001}.
+
+\begin{figure}[ht]
+	\centering
+	\input{figures/tof.tex}
+	\caption{Principio de medición por Tiempo de Vuelo (ToF).}
+	\label{fig:tof_scheme}
+\end{figure}
+Como se ilustra en la figura \ref{fig:tof_scheme}, el sistema emplea una arquitectura óptica coaxial donde una fuente láser modulada emite un haz luminoso que atraviesa un divisor de haz (\textit{beam splitter}).
+La señal llega a la superficie de la hoja de acero a una distancia radial \(R\).
+La señal se refleja siguiendo la misma dirección y se desvía ortogonalmente por el divisor óptico hacia el sensor receptor.
+Para cuantificar este recorrido, la luz emitida se modula con una señal periódica a una radiofrecuencia fija \(f_{\text{mod}}\) (normalmente de \qtyrange{20}{100}{\mega\hertz}).
+El tiempo de vuelo \(\tau\) que tardan los fotones en completar el viaje provoca un retraso o desfase angular \(\varphi\) respecto a la señal de referencia.
+
+Para extraer este valor, el receptor realiza cuatro capturas integradas de carga (\(A_0, A_1, A_2, A_3\)) con desfases programados de \ang{90} (\ang{0}, \ang{90}, \ang{180} y \ang{270}).
+Con estas lecturas por pixel, el desfase \(\varphi(x, y)\) y la amplitud modulada \(B(x, y)\) se calculan directamente:
+
+\begin{equation}
+	\varphi(x, y) = \arctan\parens*{\frac{A_3(x, y) - A_1(x, y)}{A_0(x, y) - A_2(x, y)}}
+\end{equation}
+
+\begin{equation}
+	B(x, y) = \frac{1}{2} \sqrt{\parens{A_3(x, y) - A_1(x, y)}^2 + \parens{A_0(x, y) - A_2(x, y)}^2}
+\end{equation}
+
+El valor de \(B(x, y)\) sirve como índice de confianza para descartar zonas problemáticas, como reflejos especulares intensos causados por el acero pulido o lecturas con ruido excesivo. A su vez, la radiación ambiental parásita \(A(x, y)\) se filtra promediando las tomas:
+
+\begin{equation}
+	A(x, y) = \frac{A_0(x, y) + A_1(x, y) + A_2(x, y) + A_3(x, y)}{4}
+\end{equation}
+
+Conocido el ángulo \(\varphi(x, y)\) y con la velocidad de la luz en el aire (\(c \approx \qty{3e8}{\metre\per\second}\)), la distancia real \(R(x, y)\) hasta la superficie se obtiene mediante:
+
+\begin{equation}
+	R(x, y) = \frac{c}{4\pi f_{\text{mod}}} \varphi(x, y) = \frac{c \cdot \tau(x, y)}{2}
+\end{equation}
+
+El rango de medición queda acotado por \(R_{\text{max}} = \frac{c}{2 f_{\text{mod}}}\).
+Finalmente, a partir de la distancia \(R(x, y)\) y los parámetros de calibración del lente, los datos se proyectan a un espacio cartesiano como una nube de puntos 3D \(\mathbf{P}(x, y) = [X, Y, Z]^T\), permitiendo mapear pandeos y variaciones de planitud de la lámina en tiempo real.
+
+
+
+% \section{Estado del arte}
+%
+% \section{Análisis comparativo}

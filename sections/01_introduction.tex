@@ -1,10 +1,31 @@
-% \chapter{Introducción}
-%
-% \section{Presentación}
-% \section{Planteamiento del problema}
-% Este es un ejemplo de una cita como dijo \textcite{LIU201833}. \\
-% Esta cita es una normal \parencite{ZHAO2020224}.
-%
+\chapter{Introducción}
+
+\section{Presentación}
+En la planta de estampado de Ford Hermosillo (HSAP) se fabrican paneles estructurales y de carrocería para los modelos Ford Bronco Sport y Maverick, cuyo proceso inicia en la línea de corte.
+Al desenrollar y cortar bobinas de acero, las tensiones residuales no uniformes y defectos de laminado provocan anomalías y deformaciones geométricas de planitud, como pueden ser bordes ondulados o bolsas centrales.
+Además, al apilarse estas láminas cortadas en la estiba, estos defectos se van acumulando hasta causar esfuerzos disparejos en la linea de estampado, llevando a paros no planificados en la planta.
+
+\section{Planteamiento del problema}
+
+El estándar actual de calidad de la planta exige inspeccionar manualmente los primeros 20 \textit{blanks} de cada rollo, pero esto introduce un riesgo de error en el método de medición y/o de omisión del proceso si no llegasen a ser medidos, además de dejar sin verificación gran parte del volumen de acero proveniente de la bobina.
+Actualmente, la planta Ford ha identificado cuatro posibles defectos de apilamiento en la estiba, ilustrados en la Figura \ref{fig:criterios_apilado}, los cuales también son descritos a continuación:
+
+\begin{enumerate}
+	\item Criterio \(e\): dispersión lateral. Tolerancia máxima: \(e = \qty{3}{\mm}\).
+	\item Criterio \(f\): inclinación en la estiba de \textit{blanks}. Tolerancia máxima: \(f = \qty{7}{\mm}\).
+	\item Criterio \(w\): ondulaciones superficiales. Tolerancia máxima: \(w = \qty{\pm 5}{\mm}\).
+	\item Criterio \(h\): desnivel acumulado. Tolerancia máxima: \(h = \qty{38}{\mm}\).
+\end{enumerate}
+
+\begin{figure}
+	\centering
+	\input{figures/criterios_apilado.tex}
+	\caption{Criterios y tolerancias geométricas para el apilado.}
+	\label{fig:criterios_apilado}
+\end{figure}
+
+
+
 % \section{LGAC en la que se enmarca el proyecto}
 % \section{Objetivo general}
 % \section{Objetivos específicos}
