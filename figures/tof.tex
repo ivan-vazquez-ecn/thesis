@@ -1,0 +1,60 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{xcolor}
+\usetikzlibrary{shapes,arrows.meta,calc}
+
+\begin{document}
+% Macro para el bloque 3D (toma el color base, p. ej. "gray")
+\newcommand{\drawblock}[5]{
+	\begin{scope}[shift={(#1)}, rotate=#2]
+		\filldraw[fill=#3!30, draw=black] (0,0) rectangle (#4,#5);
+		\filldraw[fill=#3!50, draw=black] (#4,0) -- ++(30:0.4) -- ++(0,#5) -- (#4,#5) -- cycle;
+		\filldraw[fill=#3!70, draw=black] (0,#5) -- ++(30:0.4) -- ++(#4,0) -- (#4,#5) -- cycle;
+	\end{scope}
+}
+\begin{tikzpicture}[>=Latex, font=\sffamily\fontsize{8pt}{10pt}\selectfont]
+
+	% Coordenadas base
+	\coordinate (O) at (0,0);
+	\coordinate (laser_start) at (-3,0.3);
+	\coordinate (splitter_center) at (-1.5,0.3);
+	\coordinate (target_front) at (4.5,0.3);
+	\coordinate (receiver_front) at (-1.5,-1.2);
+
+	% Laser Box (3D) -> Pasas "gray" simple, sin signos de admiración
+	\coordinate (laser_corner) at ($(laser_start)+(-2.1,-0.3)$);
+	\drawblock{laser_corner}{0}{gray}{2.1}{0.6}
+	\node[anchor=center, text width=1.5cm, align=center] at ($(laser_start)+(-1.05,0)$) {\bf Láser};
+
+	% Tilted Beam Splitter
+	\draw[rotate around={-60:(splitter_center)}, line width=2pt, draw=black!80]
+	($(splitter_center)+(0,-0.6)$) -- ($(splitter_center)+(0,0.6)$);
+
+	% Target Block (3D) -> Pasas "gray" simple
+	\coordinate (target_corner) at ($(target_front)+(0,-1.2)$);
+	\drawblock{target_corner}{0}{gray}{0.8}{2.4}
+	\node[anchor=center, align=center] at ($(target_front)+(0.4,-1.8)$) {Superficie};
+	\fill[black] (target_front) circle (0.15);
+
+	% Receiver Block (3D) -> Pasas "gray" simple
+	\coordinate (receiver_corner) at ($(receiver_front)+(-1.2,-0.8)$);
+	\drawblock{receiver_corner}{0}{gray}{2.4}{0.8}
+	\node[anchor=center, text width=2cm, align=center] at ($(receiver_front)+(0,-0.4)$) {\bf Receptor};
+
+	% --- Trayectorias de haz ---
+	\draw[red, line width=1.2pt, ->] (laser_start) -- (splitter_center);
+	\draw[red, line width=1.2pt] (splitter_center) -- (target_front);
+
+	\coordinate (return_start) at ($(target_front)+(0,-0.08)$);
+	\coordinate (return_mid) at ($(splitter_center)+(0,-0.08)$);
+	\draw[red, line width=1.2pt] (return_start) -- (return_mid);
+	\draw[red, line width=1.2pt, ->] (return_start) -- ($(return_mid)!0.5!(return_start)$);
+
+	\draw[red, line width=1.2pt, ->] (return_mid) -- (receiver_front);
+
+	% --- Acotación (distancia R) ---
+	\draw[thick] ($(splitter_center)+(0,0.6)$) -- ++(0,1.2);
+	\draw[thick] ($(target_front)+(0,1.2)$) -- ++(0,0.6);
+	\draw[<->, thick] ($(splitter_center)+(0,1.5)$) -- node[above, font=\bf] {R} ($(target_front)+(0,1.5)$);
+
+\end{tikzpicture}
+\end{document}

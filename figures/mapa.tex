@@ -1,0 +1,155 @@
+\begin{tikzpicture}[
+		font=\sffamily\fontsize{8pt}{10pt}\selectfont,
+		>=Latex,
+		node distance = 7mm and 3.5mm,
+		% Estilo base para cajas
+		basebox/.style = {
+				draw,
+				rounded corners=3pt,
+				align=left,
+				inner sep=5pt
+			},
+		% Nodo raíz principal
+		rootbox/.style = {
+				basebox,
+				fill=gray!15,
+				draw=gray!80,
+				line width=0.8pt,
+				align=center,
+				font=\sffamily\bfseries\normalsize,
+				text width=11.5cm
+			},
+		% Sub-cabeceras conceptuales
+		subrootbox/.style = {
+				basebox,
+				line width=0.7pt,
+				align=center,
+				font=\sffamily\bfseries\scriptsize,
+				text width=6.9cm
+			},
+		% Estilo para los 4 ejes
+		axisbox/.style = {
+				basebox,
+				text width=3.35cm,
+				top color=white,
+				bottom color=gray!10,
+				draw=gray!60,
+				line width=0.6pt
+			},
+		% Cajas inferiores de brecha y propuesta
+		gapbox/.style = {
+				basebox,
+				fill=red!5,
+				draw=red!50!black,
+				line width=0.7pt,
+				text width=14.5cm
+			},
+		propbox/.style = {
+				basebox,
+				fill=blue!8,
+				draw=blue!60!black,
+				line width=0.9pt,
+				text width=14.5cm
+			}
+	]
+
+	% 1. NODO RAÍZ SUPERIOR
+	\node[rootbox] (root) {
+		Inspección dimensional y aseguramiento de planitud \\
+		en láminas de acero automotriz (blanks)
+	};
+
+	% 2. SUB-CABECERAS CONCEPTUALES: TÉCNICA VS. ARTE
+	\node[subrootbox, fill=orange!10, draw=orange!60!black, below left=7mm and 2mm of root.south] (subtech) {
+		ESTADO DE LA TÉCNICA \\
+		\normalfont\scriptsize(Líneas de procesamiento e instrumentación industrial)
+	};
+
+	\node[subrootbox, fill=teal!10, draw=teal!60!black, below right=7mm and 2mm of root.south] (subart) {
+		ESTADO DEL ARTE \\
+		\normalfont\scriptsize(Frontera científica en sensado 3D e IA)
+	};
+
+	% 3. LOS 4 EJES TEMÁTICOS (2 para Técnica, 2 para Arte)
+	% Eje 2 y Eje 1 (Técnica)
+	\node[axisbox, below right=12mm and 1mm of subtech.south] (eje2) {
+		\textbf{Eje 2: Mitigación de vibraciones}\\[3pt]
+		\textbullet~\textcite{Alonso2020} \\
+		\textbullet~\textcite{Alonso2021}
+	};
+
+	\node[axisbox, left=of eje2] (eje1) {
+		\textbf{Eje 1: Metrología y líneas de acero}\\[3pt]
+		\textbullet~\textcite{Molleda2011} \\
+		\textbullet~\textcite{Tsai2021}
+	};
+
+	% Eje 3 y Eje 4 (Arte)
+	\node[axisbox, below left=12mm and 1mm of subart.south] (eje3) {
+		\textbf{Eje 3: Sensado 3D matricial iToF y MPI}\\[3pt]
+		\textbullet~\textcite{Du2026} \\
+		\textbullet~\textcite{Yoshida2026} \\
+		\textbullet~\textcite{Marchisotti2022}
+	};
+
+	\node[axisbox, right=of eje3] (eje4) {
+		\textbf{Eje 4: Clasificación morfológica e IA}\\[3pt]
+		\textbullet~\textcite{Yang2024} \\
+		\textbullet~\textcite{Shuai2026} \\
+		\textbullet~\textcite{Wang2026}
+	};
+
+	% 4. NODO BRECHA
+	\node[gapbox, below=14mm of $(eje2.south)!0.5!(eje3.south)$] (gap) {
+		\textbf{\color{red!50!black}Brechas en el estado del arte y de la técnica identificadas:}\\[2pt]
+		-- Los sistemas en planta dependen de barridos cinemáticos lentos o muestreos discretos que omiten defectos locales. \\
+		-- Los métodos metrológicos actuales se limitan a decisiones binarias (Pasa/Falla), sin clasificar tipologías morfológicas. \\
+		-- Los algoritmos de supresión de MPI y modelos 3D de laboratorio no operan bajo cadencia industrial (\(< 1.5\)~s).
+	};
+
+	% 5. NODO PROPUESTA DE TESIS
+	\node[propbox, below=6mm of gap] (prop) {
+		\textbf{\color{blue!60!black}Solución de tesis propuesta:}\\[2pt]
+		-- Cámara matricial iToF industrial + VCSEL a 940~nm (captura instantánea sin barrido mecánico). \\
+		-- Preprocesamiento y filtrado 3D para desacoplar reflexiones especulares e interferencia multicamino (MPI). \\
+		-- Red neuronal perimetral en GPU (TensorRT) para cuantificación y clasificación multiclase de defectos de apilado y planitud (dispersión \(e\), inclinación \(f\), ondulación \(w\) y efecto cuña \(h\)).\\
+		-- Estimación de tolerancias de planitud GD\&T y dictamen integrado en tiempo de ciclo industrial (\(< 1.5\)~s).
+	};
+
+	% ==========================================
+	% CONEXIONES / FLECHAS ORTOGONALES
+	% ==========================================
+
+	% 1. Raíz a Sub-cabeceras (Técnica y Arte)
+	\coordinate (splitRoot) at ($(root.south)+(0,-3.5mm)$);
+	\draw[thick, black] (root.south) -- (splitRoot);
+	\draw[thick, black] (subtech.north |- splitRoot) -- (subart.north |- splitRoot);
+	\draw[->, thick, black] (subtech.north |- splitRoot) -- (subtech.north);
+	\draw[->, thick, black] (subart.north |- splitRoot) -- (subart.north);
+
+	% 2. Sub-cabecera Técnica a Ejes 1 y 2 (Centrado ortogonal)
+	\coordinate (splitTech) at ($(subtech.south)+(0,-4mm)$);
+	\draw[thick, black] (subtech.south) -- (splitTech);
+	\draw[thick, black] (eje1.north |- splitTech) -- (eje2.north |- splitTech);
+	\draw[->, thick, black] (eje1.north |- splitTech) -- (eje1.north);
+	\draw[->, thick, black] (eje2.north |- splitTech) -- (eje2.north);
+
+	% 3. Sub-cabecera Arte a Ejes 3 y 4 (Centrado ortogonal)
+	\coordinate (splitArt) at ($(subart.south)+(0,-4mm)$);
+	\draw[thick, black] (subart.south) -- (splitArt);
+	\draw[thick, black] (eje3.north |- splitArt) -- (eje4.north |- splitArt);
+	\draw[->, thick, black] (eje3.north |- splitArt) -- (eje3.north);
+	\draw[->, thick, black] (eje4.north |- splitArt) -- (eje4.north);
+
+	% 4. Coordenada inferior: Convergencia de los 4 ejes hacia la Brecha
+	\coordinate (mergeBottom) at ($(gap.north)+(0,5mm)$);
+	\foreach \e in {eje1, eje2, eje3, eje4} {
+			\draw[thick, black] (\e.south) -- (\e.south |- mergeBottom);
+		}
+	\draw[thick, black] (eje1.south |- mergeBottom) -- (eje4.south |- mergeBottom);
+	\draw[->, thick, black] ($(gap.north)+(0,5mm)$) -- (gap.north);
+
+	% 5. Flecha directa de Brecha a Propuesta
+	\draw[->, thick, black] (gap.south) -- (prop.north);
+
+\end{tikzpicture}

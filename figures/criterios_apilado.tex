@@ -1,0 +1,166 @@
+\documentclass[tikz,border=4pt]{standalone}
+\usepackage{siunitx}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta, babel}
+
+\begin{document}
+\begin{tikzpicture}[
+		>=Latex,
+		font=\footnotesize, % 8-9pt estándar IEEE
+		dim/.style={<->, >=Latex, line width=0.4pt},
+		guide/.style={line width=0.3pt, black!85},
+		base/.style={fill=gray!35, draw=black, line width=0.6pt},
+		sheet/.style={draw=black, line width=0.5pt},
+		annot/.style={font=\footnotesize, anchor=west}
+	]
+
+	% ==========================================
+	% CASO 1: Desalineación escalonada (e)
+	% ==========================================
+	\begin{scope}[yshift=0cm]
+		\draw[base] (-0.2, 0) rectangle (4.2, 0.25);
+
+		% Hojas apiladas (L = 3.6 cm)
+		\foreach \y/\dx in {
+				0.33/-0.13,
+				0.39/-0.03,
+				0.45/-0.17,
+				0.51/-0.02,
+				0.57/-0.20,
+				0.63/-0.07,
+				0.69/-0.12,
+				0.75/-0.02,
+				0.81/-0.20,
+				0.87/-0.05,
+				0.93/-0.15,
+				0.99/-0.08,
+				1.05/-0.03,
+				1.11/-0.10,
+				1.17/-0.13,
+				1.23/0.00
+			}{
+				\draw[sheet] (0.20 + \dx, \y) -- (3.80 + \dx, \y);
+			}
+
+		% Cota e izquierda
+		\draw[guide] (0.00, 0.25) -- (0.00, 1.45);
+		\draw[guide] (0.20, 0.25) -- (0.20, 1.45);
+		\draw[guide] (0.00, 1.35) -- (0.20, 1.35);
+		\draw[->, >=Latex, line width=0.4pt] (-0.25, 1.35) -- (0.00, 1.35);
+		\draw[->, >=Latex, line width=0.4pt] (0.45, 1.35)  -- (0.20, 1.35);
+		\node[above=0.5pt] at (0.10, 1.35) {\(e\)};
+
+		% Cota e derecha
+		\draw[guide] (3.60, 0.25) -- (3.60, 1.45);
+		\draw[guide] (3.80, 0.25) -- (3.80, 1.45);
+		\draw[guide] (3.60, 1.35) -- (3.80, 1.35);
+		\draw[->, >=Latex, line width=0.4pt] (3.35, 1.35) -- (3.60, 1.35);
+		\draw[->, >=Latex, line width=0.4pt] (4.05, 1.35) -- (3.80, 1.35);
+		\node[above=0.5pt] at (3.70, 1.35) {\(e\)};
+
+		% Cota de altura H
+		\draw[guide] (3.80, 1.23) -- (4.65, 1.23);
+		\draw[guide] (4.20, 0.25) -- (4.65, 0.25);
+		\draw[dim] (4.50, 0.25) -- (4.50, 1.23) node[midway, right=1pt] {\(H\)};
+
+		% Texto IEEE
+		\node[annot] at (5.10, 1.35) {\(e = \text{máx. \qty{3}{\mm}}\)};[cite: 1]
+		\draw[line width=0.5pt] (-0.4, -0.15) -- (8.5, -0.15);
+	\end{scope}
+
+	% ==========================================
+	% CASO 2: Inclinación lateral / sesgo (f)
+	% ==========================================
+	\begin{scope}[yshift=-2.1cm]
+		\draw[base] (-0.2, 0) rectangle (4.2, 0.25);
+
+		\foreach \i in {0,...,15}{
+				\pgfmathsetmacro{\y}{0.33 + \i*0.06}
+				\pgfmathsetmacro{\xi}{0.20 - \i*0.023}
+				\pgfmathsetmacro{\xd}{3.80 - \i*0.023}
+				\draw[sheet] (\xi, \y) -- (\xd, \y);
+			}
+
+		% Cota f izquierda
+		\draw[guide] (-0.145, 0.25) -- (-0.145, 1.45);
+		\draw[guide] (0.20, 0.25)   -- (0.20, 1.45);
+		\draw[guide] (-0.145, 1.35) -- (0.20, 1.35);
+		\draw[->, >=Latex, line width=0.4pt] (-0.40, 1.35) -- (-0.145, 1.35);
+		\draw[->, >=Latex, line width=0.4pt] (0.45, 1.35)  -- (0.20, 1.35);
+		\node[above=0.5pt] at (0.027, 1.35) {\(f\)};
+
+		% Cota f derecha
+		\draw[guide] (3.455, 0.25) -- (3.455, 1.45);
+		\draw[guide] (3.80, 0.25)  -- (3.80, 1.45);
+		\draw[guide] (3.455, 1.35) -- (3.80, 1.35);
+		\draw[->, >=Latex, line width=0.4pt] (3.20, 1.35) -- (3.455, 1.35);
+		\draw[->, >=Latex, line width=0.4pt] (4.05, 1.35) -- (3.80, 1.35);
+		\node[above=0.5pt] at (3.627, 1.35) {\(f\)};
+
+		% Cota H
+		\draw[guide] (3.455, 1.23) -- (4.65, 1.23);
+		\draw[guide] (4.20, 0.25)  -- (4.65, 0.25);
+		\draw[dim] (4.50, 0.25) -- (4.50, 1.23) node[midway, right=1pt] {\(H\)};
+
+		\node[annot] at (5.10, 1.35) {\(f = \text{máx. \qty{7}{\mm}}\)};[cite: 1]
+		\draw[line width=0.5pt] (-0.4, -0.15) -- (8.5, -0.15);
+	\end{scope}
+
+	% ==========================================
+	% CASO 3: Ondulación / Curvatura (w)
+	% ==========================================
+	\begin{scope}[yshift=-3.9cm]
+		\draw[base] (-0.2, 0) rectangle (4.2, 0.25);
+
+		\foreach \i in {0,...,14}{
+				\pgfmathsetmacro{\ybase}{0.40 + \i*0.058}
+				\pgfmathsetmacro{\amp}{0.085 + \i*0.002}
+				\draw[sheet, domain=-0.05:3.85, samples=75, smooth]
+				plot (\x, {\ybase + \amp*sin((\x + 0.05) * 230)});
+			}
+
+		% Cota w superior
+		\draw[guide] (2.95, 1.325) -- (4.65, 1.325);
+		\draw[guide] (2.15, 1.100) -- (4.65, 1.100);
+		\draw[guide] (4.50, 1.100) -- (4.50, 1.325);
+		\draw[->, >=Latex, line width=0.4pt] (4.50, 1.48) -- (4.50, 1.325);
+		\draw[->, >=Latex, line width=0.4pt] (4.50, 0.94) -- (4.50, 1.100);
+		\node[right=1pt] at (4.50, 1.21) {\(w\)};
+
+		% Cota w inferior
+		\draw[guide] (2.95, 0.485) -- (4.65, 0.485);
+		\draw[guide] (2.15, 0.315) -- (4.65, 0.315);
+		\draw[guide] (4.50, 0.315) -- (4.50, 0.485);
+		\draw[->, >=Latex, line width=0.4pt] (4.50, 0.64) -- (4.50, 0.485);
+		\draw[->, >=Latex, line width=0.4pt] (4.50, 0.16) -- (4.50, 0.315);
+		\node[right=1pt] at (4.50, 0.40) {\(w\)};
+
+		\node[annot] at (5.10, 1.21) {\(w = \text{máx. \qty{+-5}{\mm}}\)};[cite: 1]
+		\draw[line width=0.5pt] (-0.4, -0.15) -- (8.5, -0.15);
+	\end{scope}
+
+	% ==========================================
+	% CASO 4: Inclinación en cuña (h)
+	% ==========================================
+	\begin{scope}[yshift=-5.6cm]
+		\draw[base] (-0.2, 0) rectangle (4.2, 0.25);
+
+		\foreach \i in {0,...,13}{
+				\pgfmathsetmacro{\yl}{0.33 + \i*0.068}
+				\pgfmathsetmacro{\yr}{0.33 + \i*0.045}
+				\draw[sheet] (0.0, \yl) -- (3.8, \yr);
+			}
+
+		% Cota h
+		\draw[guide] (0.00, 1.214) -- (4.65, 1.214);
+		\draw[guide] (3.80, 0.915) -- (4.65, 0.915);
+		\draw[guide] (4.50, 0.915) -- (4.50, 1.214);
+		\draw[->, >=Latex, line width=0.4pt] (4.50, 1.40) -- (4.50, 1.214);
+		\draw[->, >=Latex, line width=0.4pt] (4.50, 0.73) -- (4.50, 0.915);
+		\node[right=1pt] at (4.50, 1.065) {\(h\)};
+
+		\node[annot] at (5.10, 1.21) {\(h = \text{máx. \qty{38}{\mm}}\)};[cite: 1]
+	\end{scope}
+
+\end{tikzpicture}
+\end{document}
